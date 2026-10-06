@@ -10,12 +10,13 @@ pipeline {
                 }
             }
         }
-        stage('Run Tests')
+        stage('Run Tests'){
                 steps {
                     script{
                         env.DOCKER_BUILDKIT = 1
                         sh 'docker run -e CI=true omarwael/docker-react npm test '
                     }
                 }
+        }
     }
 }
