@@ -19,11 +19,11 @@
 
        - name: Deploy to EB
          uses: einaregilsson/beanstalk-deploy@v22
-         with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: omar
-          environment_name: MyApplication-Environment
-          version_label: 12345
-          region: us-east-1
-          deployment_package: deploy.zip
+            with:
+            aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            application_name: "omar"
+            environment_name: "Omar-env"
+            version_label: ${{ github.sha }}
+            region: us-east-1
+            deployment_package: deploy.zip
