@@ -12,18 +12,28 @@
        - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
        - run: docker build -t omarwael/react-test -f Dockerfile.dev .
        - run: docker run -e CI=true omarwael/react-test npm run test 
+       - run: docker build -t moraaa7/multi-client ./microservices/client
+       - run: docker build -t moraaa7/multi-nginx ./microservices/nginx
+       - run: docker build -t moraaa7/multi-server ./microservices/server
+       - run: docker build -t moraaa7/multi-worker ./microservices/worker
+
+       - run: docker push moraaa7/multi-client
+       - run: docker push moraaa7/multi-nginx
+       - run: docker push moraaa7/multi-server
+       - run: docker push moraaa7/multi-worker
+            
 
 
-       - name: Generate deployment package
-         run: zip -r deploy.zip . -x '*.git*'
+      #  - name: Generate deployment package
+      #    run: zip -r deploy.zip . -x '*.git*'
 
-       - name: Deploy to EB
-         uses: einaregilsson/beanstalk-deploy@v22
-         with:
-            aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            application_name: "omar"
-            environment_name: "Omar-env-3"
-            version_label: ${{ github.sha }}
-            region: us-east-1
-            deployment_package: deploy.zip
+      #  - name: Deploy to EB
+      #    uses: einaregilsson/beanstalk-deploy@v22
+      #    with:
+      #       aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #       aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #       application_name: "omar"
+      #       environment_name: "Omar-env-3"
+      #       version_label: ${{ github.sha }}
+      #       region: us-east-1
+      #       deployment_package: deploy.zip
